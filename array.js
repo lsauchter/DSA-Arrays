@@ -1,4 +1,5 @@
-const memory = require('./memory')
+const Memory = require('./memory.js')
+const memory = new Memory
 
 class Array {
     constructor() {
@@ -11,7 +12,6 @@ class Array {
         if (this.length >= this._capacity) {
             this._resize((this.length +1) * Array.SIZE_RATIO)
         }
-
         memory.set(this.ptr + this.length, value)
         this.length++
     }
@@ -22,7 +22,7 @@ class Array {
         if (this.ptr === null) {
             throw new Error('Out of memory')
         }
-        memory.copy(this.port, oldPtr, this.length)
+        memory.copy(this.ptr, oldPtr, this.length)
         memory.free(oldPtr)
         this._capacity = size
     }
@@ -65,4 +65,35 @@ class Array {
         this.length--
     }
 }
-Array.SIZE_RATIO = 3
+
+
+function main(){
+
+    Array.SIZE_RATIO = 3;
+
+    // Create an instance of the Array class
+    let arr = new Array();
+    // Add an item to the array
+    arr.push(3);
+    arr.push(5);
+    arr.push(15);
+    arr.push(19);
+    arr.push(45);
+    arr.push(10);
+    console.log(arr);
+
+    arr.pop();
+    arr.pop();
+    arr.pop();
+    console.log(arr);
+
+    console.log(arr.get(0))
+
+    arr.pop();
+    arr.pop();
+    arr.pop();
+    arr.push("tauhida")
+    console.log(arr.get(0))
+}
+
+main()

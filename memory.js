@@ -1,4 +1,4 @@
-class Memory {
+module.exports = class Memory {
     constructor() {
         this.memory = new Float64Array(1024)
         this.head = 0
@@ -23,20 +23,22 @@ class Memory {
         if (fromIdx > toIdx) {
             //iterate forwards
             for (let i=0; i < size; i++) {
-                this.set(toIdx + 1, this.get(fromIdx + 1))
+                this.set(toIdx + i, this.get(fromIdx + i))
             }
         }
         else {
             //iterate backwords
             for (let i = size -1; i >=0; i--) {
-                this.set(toIdx + 1, this.get(fromIdx + 1))
+                this.set(toIdx + i, this.get(fromIdx + i))
             }
         }
+    }
+
+    get(ptr) {
+        return this.memory[ptr];
     }
 
     set(ptr, value) {
         this.memory[ptr] = value
     }
 }
-
-module.exports = Memory
